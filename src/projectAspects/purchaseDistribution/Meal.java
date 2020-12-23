@@ -14,7 +14,7 @@ public class Meal implements MealInterface{
     }
 
     public ArrayList<IngredientInterface> ingredients = new ArrayList<>();
-    public ArrayList<Double> ingredientsRatio = new ArrayList<>();
+    public ArrayList<IngredientInfoInterface> ingredientsRatio = new ArrayList<>();
 
     @Override
     public void attach(IngredientInterface ingredient) {
@@ -26,12 +26,16 @@ public class Meal implements MealInterface{
             }
         }
         if(notCopy){
-            this.ingredients.add(ingredient);
             System.out.println("Please enter the amount of ingredient needed to cook this meal:");
             double amount = input.nextDouble();
-            Message message = new MessageClass();
-            message.setMessageAmount(amount);
-            notifyUpdate(message, ingredient);
+            IngredientInfoInterface temporary = new IngredientInfo(amount, String.format("%s%d",ingredient.getName(),
+                    ingredient.getRefAmount()));
+            ingredient.attachStat(temporary);
+            ingredientsRatio.add(temporary);
+            this.ingredients.add(ingredient);
+//            Message message = new MessageClass();
+//            message.setMessageAmount(amount);
+//            notifyUpdate(message, ingredient);
         }
     }
 
@@ -45,7 +49,13 @@ public class Meal implements MealInterface{
         boolean found = false;
         for (IngredientInterface i : ingredients){
             if(i == ingredient){
-                i.update(message);
+                for (IngredientInfoInterface j : ingredientsRatio){
+                    for (IngredientInfoInterface k : i.getIngredientsStats()){
+                        if (j == k){
+                            i.update(message, j);
+                        }
+                    }
+                }
                 found = true;
             }
         }
@@ -57,9 +67,9 @@ public class Meal implements MealInterface{
     @Override
     public String toString() {
         StringBuilder formattedIngredients = new StringBuilder();
-        for(IngredientInterface i : ingredients){
+        for(IngredientInfoInterface i : ingredientsRatio){
             formattedIngredients.append(i.toString());
         }
-        return String.format("%s%s", "This meal consists of: ", formattedIngredients.toString());
+        return String.format("%s%s", "This meal consists of:\n", formattedIngredients.toString());
     }
 }

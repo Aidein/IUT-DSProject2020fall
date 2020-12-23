@@ -1,8 +1,8 @@
 package projectAspects.purchaseDistribution;
 
 public interface Message {
-    public double getMessagePrice();
-    public double getMessageAmount();
-    public void setMessagePrice(double price);
-    public void setMessageAmount(double amount);
+    double getMessagePrice();
+    double getMessageAmount();
+    void setMessagePrice(double price);
+    void setMessageAmount(double amount);
 }
