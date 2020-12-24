@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Ingredient implements IngredientInterface{
     private String ingredientName;
-//    private double ingredientAmount = 0;
+    private int ingredientRefAmount = 0;
     private double ingredientPricePerKilo = 0;
 
     // List of all components of a particular ingredient
@@ -23,12 +23,18 @@ public class Ingredient implements IngredientInterface{
 
     // counts the references
     public int getRefAmount(){
-        return ingredientStats.size();
+        ingredientRefAmount += 1;
+        return ingredientRefAmount - 1;
     }
 
     public Ingredient(){}
     public Ingredient(String name){
         this.ingredientName = name;
+    }
+
+    @Override
+    public void setPrice(double price) {
+        this.ingredientPricePerKilo = price;
     }
 
     @Override
@@ -39,15 +45,6 @@ public class Ingredient implements IngredientInterface{
     public void setIngredientName(String ingredientName) {
         this.ingredientName = ingredientName;
     }
-
-//    @Override
-//    public double getAmount() {
-//        return ingredientAmount;
-//    }
-//
-//    public void setIngredientAmount(double ingredientAmount) {
-//        this.ingredientAmount = ingredientAmount;
-//    }
 
     @Override
     public double getPrice() {

@@ -35,6 +35,6 @@ public class IngredientInfo implements IngredientInfoInterface{
 
     @Override
     public String toString() {
-        return String.format("%s%s%.2f\n", this.getId(), "\t-->\tWight: ", this.getWeight());
+        return String.format("%s%s%.2f\n", this.getId(), "\t-->\tWeight: ", this.getWeight());
     }
 }

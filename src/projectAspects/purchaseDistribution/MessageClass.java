@@ -1,8 +1,15 @@
 package projectAspects.purchaseDistribution;
 
+import java.security.PublicKey;
+
 public class MessageClass implements Message{
     private double price = 0;
     private double amount;
+
+    public MessageClass(){}
+    public MessageClass(double weight){
+        this.amount = weight;
+    }
 
     @Override
     public double getMessagePrice() {

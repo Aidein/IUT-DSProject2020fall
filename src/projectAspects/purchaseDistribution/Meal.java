@@ -19,7 +19,7 @@ public class Meal implements MealInterface{
     @Override
     public void attach(IngredientInterface ingredient) {
         boolean notCopy = true;
-        for(IngredientInterface i: ingredients){
+        for(IngredientInterface i : ingredients){
             if(ingredient == i){
                 notCopy = false;
                 System.out.println("There is already such an ingredient!");
@@ -28,7 +28,7 @@ public class Meal implements MealInterface{
         if(notCopy){
             System.out.println("Please enter the amount of ingredient needed to cook this meal:");
             double amount = input.nextDouble();
-            IngredientInfoInterface temporary = new IngredientInfo(amount, String.format("%s%d",ingredient.getName(),
+            IngredientInfoInterface temporary = new IngredientInfo(amount, String.format("%s(Ref:%d)",ingredient.getName(),
                     ingredient.getRefAmount()));
             ingredient.attachStat(temporary);
             ingredientsRatio.add(temporary);
@@ -41,6 +41,24 @@ public class Meal implements MealInterface{
 
     @Override
     public void detach(IngredientInterface ingredient) {
+        IngredientInfoInterface removableRef = new IngredientInfo();
+        for (IngredientInterface i : ingredients){
+            // Checks if there is such an ingredient in the meal
+            if(i == ingredient){
+                System.out.println("Detach ingredient found!");
+                // Iterates ingredient lists in Ingredients ratio of the meal
+                // and Ingredients, then compares and updates
+                for (IngredientInfoInterface j : ingredientsRatio){
+                    for (IngredientInfoInterface k : i.getIngredientsStats()){
+                        if (j.getId().equals(k.getId())){
+                            System.out.println("Ingredient removed!");
+                            removableRef = j;
+                        }
+                    }
+                }
+            }
+        }
+        this.ingredientsRatio.remove(removableRef);
         this.ingredients.remove(ingredient);
     }
 
@@ -48,15 +66,17 @@ public class Meal implements MealInterface{
     public void notifyUpdate(Message message, IngredientInterface ingredient) {
         boolean found = false;
         for (IngredientInterface i : ingredients){
+            // Checks if there is such an ingredient in the meal
             if(i == ingredient){
+                // Iterates ingredient lists in Ingredients ratio of the meal
+                // and Ingredients, then compares and updates
                 for (IngredientInfoInterface j : ingredientsRatio){
                     for (IngredientInfoInterface k : i.getIngredientsStats()){
-                        if (j == k){
+                        if (j.getId().equals(k.getId())){
                             i.update(message, j);
                         }
                     }
                 }
-                found = true;
             }
         }
         if (!found){
