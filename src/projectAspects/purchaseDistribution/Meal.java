@@ -16,6 +16,10 @@ public class Meal implements MealInterface{
     public ArrayList<IngredientInterface> ingredients = new ArrayList<>();
     public ArrayList<IngredientInfoInterface> ingredientsRatio = new ArrayList<>();
 
+    public String getMealName(){
+        return mealName;
+    }
+
     @Override
     public void attach(IngredientInterface ingredient) {
         boolean notCopy = true;

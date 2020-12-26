@@ -11,4 +11,5 @@ public interface IngredientInterface {
     int getRefAmount();
     ArrayList<IngredientInfoInterface> getIngredientsStats();
     void setPrice(double price);
+    double getTotalPrice();
 }

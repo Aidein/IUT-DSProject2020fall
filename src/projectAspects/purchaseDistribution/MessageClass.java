@@ -1,7 +1,5 @@
 package projectAspects.purchaseDistribution;
 
-import java.security.PublicKey;
-
 public class MessageClass implements Message{
     private double price = 0;
     private double amount;

@@ -65,12 +65,21 @@ public class Ingredient implements IngredientInterface{
     }
 
     @Override
+    public double getTotalPrice() {
+        double totalPrice = 0;
+        for (IngredientInfoInterface temp : ingredientStats){
+            totalPrice += temp.getWeight() * ingredientPricePerKilo;
+        }
+        return totalPrice;
+    }
+
+    @Override
     public String toString() {
         double totalAmount = 0;
         for (IngredientInfoInterface temp : ingredientStats){
             totalAmount += temp.getWeight();
         }
-        return String.format("%s%s%.2f%s%.2f\n", this.getName(), " --> Amount (in kilos): ", totalAmount,
+        return String.format("-----%s%s%.2f%s%.2f\n", this.getName(), " --> Amount (in kilos): ", totalAmount,
                 "\t Price (in sums): ", this.getPrice() * totalAmount);
     }
 }

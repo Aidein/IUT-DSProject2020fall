@@ -5,4 +5,5 @@ public interface MealInterface {
     void detach(IngredientInterface ingredient);
     void notifyUpdate(Message message, IngredientInterface ingredient);
     String toString();
+    public String getMealName();
 }
