@@ -1,9 +1,10 @@
 package projectAspects.purchaseDistribution;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class PDMain {
+public class PDMain implements PDMainInterface{
 //    public static void main(String[] args){
 //        IngredientInterface meat = new Ingredient("Meat");
 //        IngredientInterface tomato = new Ingredient("Tomato");
@@ -45,17 +46,20 @@ public class PDMain {
     public void setIngredient(String name){
         IngredientInterface ingredient = new Ingredient(name);
         totalIngredientsList.add(ingredient);
+        System.out.print("---Ingredient is set up---\n");
     }
 
     // sets a new meal
     public void setMeal(String name){
         MealInterface meal = new Meal(name);
         totalMealsList.add(meal);
+        System.out.print("---Meal is set up---\n");
     }
 
     // adds an ingredient to a meal
     public void addIngredientToMeal(MealInterface meal, IngredientInterface ingredient){
         meal.attach(ingredient);
+        System.out.println("---Ingredient added---");
     }
 
     // removes an ingredient from a meal
@@ -68,11 +72,11 @@ public class PDMain {
         System.out.println("Here is a list:");
         int count = 1, index;
         for (MealInterface meal : totalMealsList){
-            System.out.printf("%d%s%s", count, ") ", meal.getMealName());
+            System.out.printf("%d%s%s\n", count, ") ", meal.getMealName());
             count += 1;
         }
         System.out.print("Please choose the number from above:");
-        index = input.nextInt();
+        index = Integer.parseInt(input.nextLine());
         return totalMealsList.get(index - 1);
     }
 
@@ -81,11 +85,11 @@ public class PDMain {
         System.out.println("Here is a list:");
         int count = 1, index;
         for (IngredientInterface ingredient : totalIngredientsList){
-            System.out.printf("%d%s%s", count, ") ", ingredient.getName());
+            System.out.printf("%d%s%s\n", count, ") ", ingredient.getName());
             count += 1;
         }
         System.out.print("Please choose the number from above:");
-        index = input.nextInt();
+        index = Integer.parseInt(input.nextLine());
         return totalIngredientsList.get(index - 1);
     }
 
@@ -94,6 +98,7 @@ public class PDMain {
         int count = 1;
         for (MealInterface meal : totalMealsList){
             System.out.printf("\t%d%s%s\n", count, ") ", meal.getMealName());
+            count += 1;
         }
     }
 
@@ -102,6 +107,7 @@ public class PDMain {
         int count = 1;
         for (IngredientInterface ingredient : totalIngredientsList){
             System.out.printf("\t%d%s%s\n", count, ") ", ingredient.getName());
+            count += 1;
         }
     }
 
@@ -114,7 +120,7 @@ public class PDMain {
         for (IngredientInterface ingredient : totalIngredientsList){
             totalPrice += ingredient.getTotalPrice();
         }
-        System.out.printf("%s%.2f", "-----> TOTAL -----> ", totalPrice);
+        System.out.printf("%s%.2f\n", "-----> TOTAL -----> ", totalPrice);
     }
 
     // main PD class user interface
@@ -123,7 +129,7 @@ public class PDMain {
         boolean stop = false;
         do {
             System.out.println("Please choose the operation from the list below:");
-            System.out.printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
+            System.out.printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\nINPUT:",
                     "1) Set up an ingredient",
                     "2) Set up a meal",
                     "3) Add an ingredient to a meal",
@@ -133,7 +139,7 @@ public class PDMain {
                     "7) Get bill",
                     "8) Set price for an ingredient",
                     "0) Back");
-            switch (input.nextInt()){
+            switch (Integer.parseInt(input.nextLine())){
                 case 1:
                     System.out.print("Please enter the name of the ingredient (without spaces): ");
                     basket.setIngredient(input.nextLine()); break;
@@ -153,8 +159,9 @@ public class PDMain {
                 case 7:
                     basket.displayBill(); break;
                 case 8:
-                    System.out.print("-->Please choose the ingredient and set the price<--");
-                    basket.iterateAndGetIngredient().setPrice(input.nextDouble()); break;
+                    System.out.print("-->Please choose the ingredient and set the price<--\n");
+                    basket.iterateAndGetIngredient().setPrice(Double.parseDouble(input.nextLine()));
+                    break;
                 case 0:
                     stop = true; break;
                 default:

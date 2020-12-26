@@ -94,6 +94,6 @@ public class Meal implements MealInterface{
         for(IngredientInfoInterface i : ingredientsRatio){
             formattedIngredients.append(i.toString());
         }
-        return String.format("%s%s", "This meal consists of:\n", formattedIngredients.toString());
+        return String.format("%s%s%s",this.getMealName() ," consists of:\n", formattedIngredients.toString());
     }
 }
