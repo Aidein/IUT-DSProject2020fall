@@ -31,7 +31,6 @@ public class HCMMain {
         award(nameArray, amountArray);
     }
 
-    // Method that awards the amounts to the winners
     public static void award(String names[], String amounts[]) {
         int randomAmount;
         int randomName;
